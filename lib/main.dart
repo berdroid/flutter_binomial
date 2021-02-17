@@ -73,45 +73,51 @@ class _MyHomePageState extends State<MyHomePage> {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.end,
         children: <Widget>[
-          Container(
-            height: 50,
-            child: Center(
-              child: Text(
-                'µ = ${mu.toStringAsFixed(2)}  σ = ${sigma.toStringAsFixed(2)}',
-                style: Theme.of(context).textTheme.bodyText1,
-              ),
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 16.0),
+            child: Text(
+              'µ = ${mu.toStringAsFixed(2)}  σ = ${sigma.toStringAsFixed(2)}',
+              style: Theme.of(context).textTheme.bodyText1,
             ),
           ),
-          Stack(
-            alignment: AlignmentDirectional.bottomCenter,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                mainAxisSize: MainAxisSize.max,
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: cd
-                    .map((e) => Expanded(
-                            child: Container(
-                          height: 400 * e,
-                          color: Colors.indigoAccent[200].withOpacity(0.5),
-                        )))
-                    .toList(),
+          Flexible(
+            fit: FlexFit.tight,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 8.0),
+              child: Stack(
+                alignment: AlignmentDirectional.bottomCenter,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisSize: MainAxisSize.max,
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: cd
+                        .map((e) => Flexible(
+                            child: FractionallySizedBox(
+                                heightFactor: e,
+                                child: Container(
+                                  color: Colors.indigoAccent[200].withOpacity(0.5),
+                                ))))
+                        .toList(),
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisSize: MainAxisSize.max,
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: pd
+                        .asMap()
+                        .entries
+                        .map((e) => Flexible(
+                            child: FractionallySizedBox(
+                                heightFactor: e.value,
+                                child: Container(
+                                  color: inSigma(e.key) ? Colors.amber : Colors.amber.withOpacity(0.7),
+                                ))))
+                        .toList(),
+                  ),
+                ],
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                mainAxisSize: MainAxisSize.max,
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: pd
-                    .asMap()
-                    .entries
-                    .map((e) => Expanded(
-                            child: Container(
-                          height: 400 * e.value,
-                          color: inSigma(e.key) ? Colors.amber : Colors.amber.withOpacity(0.7),
-                        )))
-                    .toList(),
-              ),
-            ],
+            ),
           ),
           Text(
             'p = ${_p.toStringAsFixed(2)}',
