@@ -61,6 +61,8 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     final pd = List<double>.generate(_n + 1, (k) => binomiPd(_n, _p, k));
     final cd = List<double>.generate(_n + 1, (k) => pd.sublist(0, k + 1).fold<double>(0.0, (a, b) => a + b));
+    final mu = _n * _p;
+    final sigma = sqrt(_n * _p * (1 - _p));
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
@@ -68,6 +70,10 @@ class _MyHomePageState extends State<MyHomePage> {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.end,
         children: <Widget>[
+          Text(
+            'µ = ${mu.toStringAsFixed(2)}  σ = ${sigma.toStringAsFixed(2)}',
+            style: Theme.of(context).textTheme.bodyText1,
+          ),
           Stack(
             alignment: AlignmentDirectional.bottomCenter,
             children: [
