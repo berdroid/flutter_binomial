@@ -63,6 +63,9 @@ class _MyHomePageState extends State<MyHomePage> {
     final cd = List<double>.generate(_n + 1, (k) => pd.sublist(0, k + 1).fold<double>(0.0, (a, b) => a + b));
     final mu = _n * _p;
     final sigma = sqrt(_n * _p * (1 - _p));
+
+    bool inSigma(int k, [int s = 1]) => mu - s * sigma <= k && k <= mu + s * sigma;
+
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
@@ -70,9 +73,14 @@ class _MyHomePageState extends State<MyHomePage> {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.end,
         children: <Widget>[
-          Text(
-            'µ = ${mu.toStringAsFixed(2)}  σ = ${sigma.toStringAsFixed(2)}',
-            style: Theme.of(context).textTheme.bodyText1,
+          Container(
+            height: 50,
+            child: Center(
+              child: Text(
+                'µ = ${mu.toStringAsFixed(2)}  σ = ${sigma.toStringAsFixed(2)}',
+                style: Theme.of(context).textTheme.bodyText1,
+              ),
+            ),
           ),
           Stack(
             alignment: AlignmentDirectional.bottomCenter,
@@ -85,7 +93,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     .map((e) => Expanded(
                             child: Container(
                           height: 400 * e,
-                          color: Colors.indigoAccent[100].withOpacity(0.5),
+                          color: Colors.indigoAccent[200].withOpacity(0.5),
                         )))
                     .toList(),
               ),
@@ -94,10 +102,12 @@ class _MyHomePageState extends State<MyHomePage> {
                 mainAxisSize: MainAxisSize.max,
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: pd
+                    .asMap()
+                    .entries
                     .map((e) => Expanded(
                             child: Container(
-                          height: 400 * e,
-                          color: Colors.amber.withOpacity(0.7),
+                          height: 400 * e.value,
+                          color: inSigma(e.key) ? Colors.amber : Colors.amber.withOpacity(0.7),
                         )))
                     .toList(),
               ),
