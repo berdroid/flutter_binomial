@@ -1,5 +1,4 @@
-import 'dart:math';
-
+import 'package:binomi/stat/binomial.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -51,20 +50,9 @@ class _MyHomePageState extends State<MyHomePage> {
   int _n = 10;
   double _p = 0.5;
 
-  double fac(int n) => List<double>.generate(n, (i) => i + 1.0).fold<double>(1.0, (a, b) => a * b);
-  double perm(int n, int k) => fac(n) / (fac(k) * fac(n - k));
-  double binomiPd(int n, double p, int k) {
-    return perm(n, k) * pow(p, k) * pow(1 - p, n - k);
-  }
-
   @override
   Widget build(BuildContext context) {
-    final pd = List<double>.generate(_n + 1, (k) => binomiPd(_n, _p, k));
-    final cd = List<double>.generate(_n + 1, (k) => pd.sublist(0, k + 1).fold<double>(0.0, (a, b) => a + b));
-    final mu = _n * _p;
-    final sigma = sqrt(_n * _p * (1 - _p));
-
-    bool inSigma(int k, [int s = 1]) => mu - s * sigma <= k && k <= mu + s * sigma;
+    final binomi = Binomial(_n, _p);
 
     return Scaffold(
       appBar: AppBar(
@@ -76,7 +64,7 @@ class _MyHomePageState extends State<MyHomePage> {
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 16.0),
             child: Text(
-              'µ = ${mu.toStringAsFixed(2)}  σ = ${sigma.toStringAsFixed(2)}',
+              'µ = ${binomi.mu.toStringAsFixed(2)}  σ = ${binomi.sigma.toStringAsFixed(2)}',
               style: Theme.of(context).textTheme.bodyText1,
             ),
           ),
@@ -91,7 +79,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     mainAxisSize: MainAxisSize.max,
                     crossAxisAlignment: CrossAxisAlignment.end,
-                    children: cd
+                    children: binomi.cd
                         .map((e) => Flexible(
                             child: FractionallySizedBox(
                                 heightFactor: e,
@@ -104,14 +92,14 @@ class _MyHomePageState extends State<MyHomePage> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     mainAxisSize: MainAxisSize.max,
                     crossAxisAlignment: CrossAxisAlignment.end,
-                    children: pd
+                    children: binomi.pd
                         .asMap()
                         .entries
                         .map((e) => Flexible(
                             child: FractionallySizedBox(
                                 heightFactor: e.value,
                                 child: Container(
-                                  color: inSigma(e.key) ? Colors.amber : Colors.amber.withOpacity(0.7),
+                                  color: binomi.inSigma(e.key) ? Colors.amber : Colors.amber.withOpacity(0.7),
                                 ))))
                         .toList(),
                   ),
