@@ -1,4 +1,5 @@
 import 'package:binomi/stat/binomial.dart';
+import 'package:binomi/widgets/histogram.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -75,33 +76,10 @@ class _MyHomePageState extends State<MyHomePage> {
               child: Stack(
                 alignment: AlignmentDirectional.bottomCenter,
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    mainAxisSize: MainAxisSize.max,
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: binomi.cd
-                        .map((e) => Flexible(
-                            child: FractionallySizedBox(
-                                heightFactor: e,
-                                child: Container(
-                                  color: Colors.indigoAccent[200].withOpacity(0.5),
-                                ))))
-                        .toList(),
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    mainAxisSize: MainAxisSize.max,
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: binomi.pd
-                        .asMap()
-                        .entries
-                        .map((e) => Flexible(
-                            child: FractionallySizedBox(
-                                heightFactor: e.value,
-                                child: Container(
-                                  color: binomi.inSigma(e.key) ? Colors.amber : Colors.amber.withOpacity(0.7),
-                                ))))
-                        .toList(),
+                  Histogram(data: binomi.cd, color: Colors.indigoAccent[200].withOpacity(0.5)),
+                  Histogram(
+                    data: binomi.pd,
+                    colorize: (k) => binomi.inSigma(k) ? Colors.amber : Colors.amber.withOpacity(0.7),
                   ),
                 ],
               ),
