@@ -6,6 +6,13 @@ void main() {
     final b1 = Binomial(5, 0.5);
     final b2 = Binomial(3, 0.05);
 
+    test('List is unmodifiable', () {
+      expect(() => b1.pd[0] = 2.0, throwsA(isA<UnsupportedError>()));
+      expect(b1.pd[0], 0.03125);
+      expect(() => b1.cd[2] = 2.0, throwsA(anything));
+      expect(b1.cd[0], 0.03125);
+    });
+
     test('Probability n=5, p=0.5', () {
       expect(b1.pd.length, 6);
       expect(b1.pd[0], 0.03125);
