@@ -49,6 +49,26 @@ void main() {
       expect(b2.cd[3], closeTo(1.0, 0.0000001));
     });
   });
+
+  group('Probabilities', () {
+    test('P<n=12, p=0.2>(X)', () {
+      final b = Binomial(12, 0.2);
+      expect(b.P(0, 0), closeTo(0.0687, 0.00005));
+      expect(b.P(0, 1), closeTo(0.2749, 0.00005));
+      expect(b.P(0, 2), closeTo(0.5583, 0.00005));
+      expect(b.P(0, 12), closeTo(1.0, 0.00005));
+    });
+
+    test('P<n=10, p=0.75>(X)', () {
+      final b = Binomial(10, 0.75);
+      expect(b.P(7, 7), closeTo(0.2503, 0.00005));
+      expect(b.P(7, 8), closeTo(0.5318, 0.00005));
+      expect(b.P(7, 9), closeTo(0.7196, 0.00005));
+      expect(b.P(7, 10), closeTo(0.7759, 0.00005));
+      expect(b.P(0, 10), closeTo(1.0, 0.00005));
+    });
+  });
+
   group('µ and σ', () {
     test('n=5, p=0.5', () {
       final bin = Binomial(5, 0.5);
