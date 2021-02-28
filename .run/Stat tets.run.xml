@@ -1,5 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="Stat tets" type="FlutterTestConfigType" factoryName="Flutter Test">
+  <configuration default="false" name="Stat tests" type="FlutterTestConfigType" factoryName="Flutter Test">
     <option name="testDir" value="$PROJECT_DIR$/test/stat" />
     <option name="additionalArgs" value="" />
     <method v="2" />
