@@ -25,8 +25,8 @@ class Binomial {
   Binomial(this.n, this.p)
       : mu = n * p,
         sigma = sqrt(n * p * (1 - p)),
-        _pd = List<double>.filled(n + 1, null),
-        _cd = List<double>.filled(n + 1, null) {
+        _pd = List<double>.filled(n + 1, 0.0),
+        _cd = List<double>.filled(n + 1, 0.0) {
     double sum = 0.0;
     Iterable.generate(n + 1).forEach((k) {
       final prob = bernoulli(n, p, k);

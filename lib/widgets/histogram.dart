@@ -2,16 +2,16 @@ import 'package:flutter/material.dart';
 
 class Histogram extends StatelessWidget {
   final List<double> data;
-  final Color color;
-  final Color Function(int) colorize;
+  final Color? color;
+  final Color Function(int)? colorize;
 
-  Histogram({Key key, this.data, this.color, this.colorize}) : super(key: key);
+  Histogram({Key? key, required this.data, this.color, this.colorize}) : super(key: key);
 
   Color _colorize(int k) {
     if (colorize != null)
-      return colorize(k);
+      return colorize!(k);
     else if (color != null)
-      return this.color;
+      return color!;
     else
       return Colors.grey;
   }
