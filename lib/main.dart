@@ -3,7 +3,7 @@ import 'package:binomi/widgets/histogram.dart';
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -24,13 +24,16 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(title: 'Binomial Verteilung'),
+      home: const MyHomePage(title: 'Binomial Verteilung'),
     );
   }
+
+  /// Constructor provides [key] to super class contructor
+  const MyApp({Key? key}) : super(key: key);
 }
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key? key, required this.title}) : super(key: key);
+  const MyHomePage({Key? key, required this.title}) : super(key: key);
 
   // This widget is the home page of your application. It is stateful, meaning
   // that it has a State object (defined below) that contains fields that affect

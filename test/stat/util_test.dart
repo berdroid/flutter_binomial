@@ -44,8 +44,8 @@ void main() {
   });
 
   test('bernoulli n=5, p=0.5', () {
-    final n = 5;
-    final p = 0.5;
+    const n = 5;
+    const p = 0.5;
     expect(bernoulli(n, p, 0), closeTo(0.0313, 0.0001));
     expect(bernoulli(n, p, 1), closeTo(0.1563, 0.0001));
     expect(bernoulli(n, p, 2), closeTo(0.3125, 0.0001));
@@ -55,8 +55,8 @@ void main() {
   });
 
   test('bernoulli n=5, p=0.3', () {
-    final n = 5;
-    final p = 0.3;
+    const n = 5;
+    const p = 0.3;
     expect(bernoulli(n, p, 0), closeTo(0.1681, 0.0001));
     expect(bernoulli(n, p, 1), closeTo(0.3601, 0.0001));
     expect(bernoulli(n, p, 2), closeTo(0.3087, 0.0001));

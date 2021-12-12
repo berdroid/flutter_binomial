@@ -5,15 +5,16 @@ class Histogram extends StatelessWidget {
   final Color? color;
   final Color Function(int)? colorize;
 
-  Histogram({Key? key, required this.data, this.color, this.colorize}) : super(key: key);
+  const Histogram({Key? key, required this.data, this.color, this.colorize}) : super(key: key);
 
   Color _colorize(int k) {
-    if (colorize != null)
+    if (colorize != null) {
       return colorize!(k);
-    else if (color != null)
+    } else if (color != null) {
       return color!;
-    else
+    } else {
       return Colors.grey;
+    }
   }
 
   @override

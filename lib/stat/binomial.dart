@@ -28,12 +28,12 @@ class Binomial {
         _pd = List<double>.filled(n + 1, 0.0),
         _cd = List<double>.filled(n + 1, 0.0) {
     double sum = 0.0;
-    Iterable.generate(n + 1).forEach((k) {
+    for (var k in Iterable.generate(n + 1)) {
       final prob = bernoulli(n, p, k);
       sum += prob;
       _pd[k] = prob;
       _cd[k] = sum;
-    });
+    }
   }
 
   /// returns true if [k] is withing [s] [sigma] intervals of the expected value [mu]
