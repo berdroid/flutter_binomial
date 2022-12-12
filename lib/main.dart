@@ -71,7 +71,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       );
                     } else {
                       return BarItem(
-                        color: binomi.inSigma(d.itemIndex) ? Colors.amber : Colors.amber.withOpacity(0.7),
+                        color: binomi.inSigma(d.itemIndex) ? Colors.amber : Colors.amberAccent,
                       );
                     }
                   }),
