@@ -1,5 +1,5 @@
 import 'package:binomi/stat/binomial.dart';
-import 'package:binomi/widgets/histogram.dart';
+import 'package:charts_painter/chart.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -13,36 +13,18 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Binomial Verteilung',
       theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or simply save your changes to "hot reload" in a Flutter IDE).
-        // Notice that the counter didn't reset back to zero; the application
-        // is not restarted.
         primarySwatch: Colors.blue,
       ),
       home: const MyHomePage(title: 'Binomial Verteilung'),
     );
   }
 
-  /// Constructor provides [key] to super class contructor
+  /// Constructor provides [key] to super class constructor
   const MyApp({Key? key}) : super(key: key);
 }
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({Key? key, required this.title}) : super(key: key);
-
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
 
   final String title;
 
@@ -76,15 +58,24 @@ class _MyHomePageState extends State<MyHomePage> {
             fit: FlexFit.tight,
             child: Padding(
               padding: const EdgeInsets.symmetric(vertical: 8.0),
-              child: Stack(
-                alignment: AlignmentDirectional.bottomCenter,
-                children: [
-                  Histogram(data: binomi.cd, color: Colors.indigoAccent[200]!.withOpacity(0.5)),
-                  Histogram(
-                    data: binomi.pd,
-                    colorize: (k) => binomi.inSigma(k) ? Colors.amber : Colors.amber.withOpacity(0.7),
-                  ),
-                ],
+              child: Chart(
+                state: ChartState(
+                  data: ChartData<void>([
+                    binomi.cd.map((e) => ChartItem<void>(e)).toList(),
+                    binomi.pd.map((e) => ChartItem<void>(e)).toList(),
+                  ]),
+                  itemOptions: BarItemOptions(barItemBuilder: (ItemBuilderData d) {
+                    if (d.listIndex == 0) {
+                      return BarItem(
+                        color: Colors.indigoAccent[200]!.withOpacity(0.5),
+                      );
+                    } else {
+                      return BarItem(
+                        color: binomi.inSigma(d.itemIndex) ? Colors.amber : Colors.amber.withOpacity(0.7),
+                      );
+                    }
+                  }),
+                ),
               ),
             ),
           ),
