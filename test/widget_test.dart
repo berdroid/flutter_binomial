@@ -6,7 +6,7 @@
 // tree, read text, and verify that the values of widget properties are correct.
 
 import 'package:binomi/main.dart';
-import 'package:binomi/widgets/histogram.dart';
+import 'package:charts_painter/chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -16,7 +16,7 @@ void main() {
     await tester.pumpWidget(const MyApp());
 
     // Verify that we have all the necessary widgets in place
-    expect(find.byType(Histogram), findsNWidgets(2));
+    expect(find.byType(Chart<void>), findsOneWidget);
     expect(find.byType(Slider), findsNWidgets(2));
     expect(find.text('n = 10'), findsOneWidget);
     expect(find.text('p = 0.50'), findsOneWidget);
