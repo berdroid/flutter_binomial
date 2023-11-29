@@ -51,7 +51,7 @@ class _MyHomePageState extends State<MyHomePage> {
             padding: const EdgeInsets.symmetric(vertical: 16.0),
             child: Text(
               'µ = ${binomi.mu.toStringAsFixed(2)}  σ = ${binomi.sigma.toStringAsFixed(2)}',
-              style: Theme.of(context).textTheme.bodyText1,
+              style: Theme.of(context).textTheme.bodyLarge,
             ),
           ),
           Flexible(
@@ -81,7 +81,7 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
           Text(
             'p = ${_p.toStringAsFixed(2)}',
-            style: Theme.of(context).textTheme.headline6,
+            style: Theme.of(context).textTheme.titleLarge,
             textAlign: TextAlign.left,
           ),
           Slider(
@@ -90,7 +90,7 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
           Text(
             'n = $_n',
-            style: Theme.of(context).textTheme.headline6,
+            style: Theme.of(context).textTheme.titleLarge,
           ),
           Slider(
             value: _n.toDouble(),
